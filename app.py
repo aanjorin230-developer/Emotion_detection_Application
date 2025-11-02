@@ -13,7 +13,7 @@ Features:
 - Bootstrap-based responsive UI
 - Real-time AJAX responses
 
-Author: AKINBOYEWA_23CG034029
+Author: ANJORIN_23CG034039
 Technology Stack: Flask + scikit-learn + OpenCV
 """
 
