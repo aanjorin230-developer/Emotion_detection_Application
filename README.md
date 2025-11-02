@@ -1,129 +1,118 @@
-# Emotion Detection Web App 🎭
+## Emotion Detection Web App 🎭
 
-A simple, lightweight emotion detection web application using machine learning.
+A small Flask-based web application that detects emotions from images using a pretrained model.
 
-## 🚀 Quick Start
+This README explains how to set up, run, and deploy the app that is included in this repository.
 
-1. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+## Repository at a glance
 
-2. **Run the application:**
-   ```bash
-   python app.py
-   ```
-
-3. **Open your browser:**
-   ```
-   http://localhost:8000
-   ```
-
-## 📁 Project Structure
+Project structure:
 
 ```
-EMOTION_DETECTOR/
-├── app.py                      # Main Flask application
-├── model.py                    # Emotion detector wrapper
-├── simple_emotion_detector.py  # ML model implementation
-├── requirements.txt            # Python dependencies
-├── Procfile                   # Deployment configuration
+AKINBOYEWA_23CG034029/
+├── app.py                        
+├── model.py                     
+├── simple_emotion_detector.py  
+├── emotion_model.joblib        
 ├── templates/
-│   └── index.html            # Single-page web interface
-├── static/
-│   └── style.css            # CSS styling
-├── models/
-│   └── simple_emotion_model.joblib  # Trained ML model
-├── emotion_detection.db      # SQLite database
-└── uploads/                  # File upload directory
+│   └── index.html               
+├── requirements.txt            
+├── Procfile                   
+├── runtime.txt                 
+├── app.json                  
+├── link.txt                    
+└── README.md          
 ```
 
-## ✨ Features
+Key files and folders:
 
-- **Real Emotion Detection**: Uses scikit-learn with OpenCV face detection
-- **Single-Page Interface**: Upload images and see results instantly
-- **7 Emotions**: angry, disgust, fear, happy, sad, surprise, neutral
-- **Database Storage**: SQLite for user data and predictions
-- **Responsive Design**: Works on desktop and mobile devices
+- `app.py` — Flask application (entry point). The app runs by default on port 8000.
+- `model.py` — wrapper to initialize and use the trained model.
+- `simple_emotion_detector.py` — model helper / implementation used by `model.py`.
+- `emotion_model.joblib` — pretrained model (joblib format) used by the app.
+- `templates/` — HTML templates (contains `index.html`).
+- `requirements.txt` — Python dependencies.
+- `Procfile` — Heroku-compatible process file (`web: gunicorn app:app`).
 
-## 🛠️ Technology Stack
+## Requirements
 
-- **Backend**: Flask (Python web framework)
-- **ML**: scikit-learn, OpenCV, numpy
-- **Frontend**: HTML5, Bootstrap 5, JavaScript
-- **Database**: SQLite
-- **Deployment**: Heroku-ready with Procfile
+- Python 3.8+ (recommended)
+- Install project dependencies:
 
-## 🎯 How It Works
-
-1. **Upload an image** with a clear face
-2. **Face detection** using OpenCV algorithms
-3. **Feature extraction** from the detected face region
-4. **Emotion prediction** using trained Random Forest model
-5. **Results display** with confidence score
-
-## 🔧 Development
-
-### Local Setup
 ```bash
-# Clone and navigate to directory
-cd /path/to/AKINBOYEWA_23CG034029
-
-# Install dependencies
-pip3 install -r requirements.txt
-
-# Run application
-python3 app.py
+pip install -r requirements.txt
 ```
 
-### Deploy to Heroku
+If you use a virtual environment (recommended):
+
 ```bash
-# Login to Heroku
-heroku login
-
-# Create app
-heroku create your-app-name
-
-# Deploy
-git push heroku main
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
-## 📊 Model Details
+## Run locally
 
-- **Algorithm**: Random Forest Classifier
-- **Features**: Histogram + Local Binary Pattern-like features
-- **Input**: 48x48 grayscale face images
-- **Accuracy**: ~18% (on synthetic demo data)
-- **Model Size**: ~1MB (joblib format)
+The application is a Flask app and can be started directly for development or served with Gunicorn for production-like behavior.
 
-## 📝 API Endpoints
+- Development (quick run):
 
-- `GET /` - Main web interface
-- `POST /upload` - Process uploaded image
-- `POST /live_capture` - Process camera capture
+```bash
+python app.py
+```
 
-## 🔐 Security
+By default the app listens on port 8000. Open http://localhost:8000 in your browser.
 
-- File upload validation (16MB limit)
-- SQL injection protection
-- Input sanitization
-- Temporary file cleanup
+- Production / Heroku-like (uses `Procfile`):
 
-## 📱 Usage
+```bash
+# start with gunicorn (Procfile uses: web: gunicorn app:app)
+gunicorn app:app
+```
 
-1. **Image Upload**: Click "Choose File" and select a photo
-2. **Analysis**: Click "Analyze Emotion" to detect emotions
-3. **Results**: View detected emotion and confidence score
-4. **History**: All predictions are saved in the database
+If deploying to Heroku, the included `Procfile` already contains the startup command.
 
-## 🎨 Customization
+## How to use
 
-Edit `templates/index.html` for UI changes or `static/style.css` for styling.
+1. Open the app in your browser (`/` route).
+2. Fill name (required) and optionally email.
+3. Upload an image file (jpg, jpeg, png, bmp, gif).
+4. Click the analyze button — the app will return the predicted emotion and confidence, plus a breakdown of emotion percentages.
 
-## 📄 License
+Notes:
+- `app.py` validates uploads (allowed extensions and a 16 MB max file size configured).
+- If the trained model isn't available or initialization fails, the app falls back to a random prediction for demo purposes.
 
-Educational/Demo project - free to use and modify.
+## Model
+
+The pretrained model is provided as `emotion_model.joblib` in the repository root. `model.py` contains the code that loads this model (via joblib) and exposes a `predict_emotion` helper used by `app.py`.
+
+If you retrain or replace the model, keep the same file path or update `model.py` accordingly.
+
+## Database
+
+The app creates a lightweight SQLite database file named `emotion_detection.db` in the project root. It stores simple user records and prediction results. The DB is created automatically on first run.
+
+## Deployment
+
+- Heroku: The `Procfile` includes `web: gunicorn app:app` so deployment to Heroku is straightforward. Make sure to set any required environment variables (e.g. `SECRET_KEY`).
+
+- Docker: You can containerize the app yourself (not included here). Use `gunicorn app:app` as the container entrypoint.
+
+## Troubleshooting
+
+- If the app prints an import/initialization error for the detector, ensure `emotion_model.joblib` exists and `requirements.txt` packages are installed.
+- File upload errors: ensure the image is of an allowed type and under 16MB.
+- Port in use: change the `PORT` environment variable or edit the port in `app.py` for local testing.
+
+## Contributing
+
+Small improvements and fixes are welcome. If you change model behavior or public APIs, please update this README accordingly.
+
+## License
+
+Educational / demo project. No explicit license set in this repository — update if you want to apply one.
 
 ---
 
-**Simple. Fast. Effective.** 🚀
+If you'd like, I can add a short example `curl` command and a minimal `.env.example` next.

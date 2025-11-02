@@ -1,29 +1,5 @@
-#!/usr/bin/env python3
-"""
-Simple Emotion Detector
-======================
-
-A lightweight emotion detection system using traditional machine learning
-approaches instead of deep learning frameworks like TensorFlow.
-
-Features:
-- Face detection using OpenCV Haar cascades
-- Feature extraction using histograms and LBP-like patterns
-- Emotion classification using Random Forest
-- 7 emotion categories: angry, disgust, fear, happy, sad, surprise, neutral
-- Synthetic data generation for training demonstration
-- Cross-platform compatibility
-
-Author: AKINBOYEWA_23CG034029
-Dependencies: scikit-learn, OpenCV, numpy
-Model Size: ~1MB (compact for deployment)
-"""
-
-# Standard library imports
 import os
 import pickle
-
-# Third-party imports
 import cv2
 import numpy as np
 import joblib
