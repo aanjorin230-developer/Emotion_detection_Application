@@ -23,6 +23,7 @@ import sqlite3
 import random
 import base64
 import io
+import time
 from datetime import datetime
 
 # Third-party imports
@@ -196,24 +197,38 @@ def upload_image():
             cursor.execute('INSERT INTO users (name, email) VALUES (?, ?)', (name, email))
             user_id = cursor.lastrowid
             
-            # Process image directly from memory (no file saving, no filename storage)
+            # Create uploads directory if it doesn't exist
+            upload_dir = 'uploads'
+            os.makedirs(upload_dir, exist_ok=True)
+            
+            # Generate unique filename with timestamp
+            timestamp = int(time.time())
+            filename = f"user_{user_id}_{timestamp}_{file.filename}"
+            file_path = os.path.join(upload_dir, filename)
+            
             try:
+                # Save the uploaded file to disk
+                file.save(file_path)
+                
                 # Convert uploaded file to PIL Image for processing
                 from PIL import Image
-                image = Image.open(file.stream)
+                image = Image.open(file_path)
                 
-                # Predict emotion using image object instead of file path
+                # Predict emotion using image object
                 emotion, confidence, message, all_emotions = predict_emotion(image)
                 
-                # Save prediction to database (no image_path stored, just analysis results)
+                # Save prediction to database with actual file path
                 cursor.execute('''INSERT INTO predictions 
                                (user_id, image_path, predicted_emotion, confidence, capture_type) 
                                VALUES (?, ?, ?, ?, ?)''', 
-                              (user_id, 'uploaded_image', emotion, confidence, 'upload'))
+                              (user_id, file_path, emotion, confidence, 'upload'))
                 conn.commit()
                 conn.close()
             except Exception as e:
                 conn.close()
+                # Clean up file if there was an error
+                if os.path.exists(file_path):
+                    os.remove(file_path)
                 raise e
             
             return jsonify({
@@ -259,14 +274,26 @@ def process_live_image():
         cursor.execute('INSERT INTO users (name, email) VALUES (?, ?)', (name, email))
         user_id = cursor.lastrowid
         
-        # Predict emotion using PIL Image directly (no file storage)
+        # Create uploads directory if it doesn't exist
+        upload_dir = 'uploads'
+        os.makedirs(upload_dir, exist_ok=True)
+        
+        # Generate unique filename for camera capture
+        timestamp = int(time.time())
+        filename = f"user_{user_id}_camera_{timestamp}.jpg"
+        file_path = os.path.join(upload_dir, filename)
+        
+        # Save the captured image to disk
+        image.save(file_path, 'JPEG', quality=85)
+        
+        # Predict emotion using PIL Image
         emotion, confidence, message, all_emotions = predict_emotion(image)
         
-        # Save prediction to database (no image_path stored, just analysis results)
+        # Save prediction to database with actual file path
         cursor.execute('''INSERT INTO predictions 
                        (user_id, image_path, predicted_emotion, confidence, capture_type) 
                        VALUES (?, ?, ?, ?, ?)''', 
-                      (user_id, 'camera_capture', emotion, confidence, 'live_capture'))
+                      (user_id, file_path, emotion, confidence, 'live_capture'))
         conn.commit()
         conn.close()
         
@@ -287,6 +314,6 @@ def process_live_image():
 if __name__ == '__main__':
     init_db()
     init_emotion_detector_global()
-    port = int(os.environ.get('PORT', 8000))  # Changed default port to 8000
+    port = int(os.environ.get('PORT', 3000))  # Changed default port to 8000
     debug_mode = os.environ.get('FLASK_ENV') == 'development'
     app.run(host='0.0.0.0', port=port, debug=debug_mode)

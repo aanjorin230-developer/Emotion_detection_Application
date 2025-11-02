@@ -11,6 +11,7 @@ env.bak
 venv.bak
 .env
 .DS_Store
+# Don't ignore database and uploads for this project
 *.db
 .git
 .pytest_cache
@@ -21,3 +22,6 @@ htmlcov
 .vscode
 uploads/
 *.log
+temp/
+test_*.py
+*_test.py
