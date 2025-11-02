@@ -21,4 +21,3 @@ htmlcov
 .vscode
 uploads/
 *.log
-*.link.txt

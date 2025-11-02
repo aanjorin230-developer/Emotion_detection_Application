@@ -1,7 +1,7 @@
 🚀 Emotion Detection App - Fixed and Ready!
 
-Local Development:
-http://localhost:8000
+online-link:
+https://emotion-detector-dc895af0fb17.herokuapp.com/
 
 Issues Fixed:
 ✅ Port changed from 5000 to 8000 (AirPlay conflict resolved)
