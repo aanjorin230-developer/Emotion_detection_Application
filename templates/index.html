@@ -7,270 +7,64 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-
-  <style>
-    /* === Dark Mode Polished Redesign === */
-    :root {
-      --bg-dark: #0c0c17;
-      --surface-dark: #151523;
-      --border-faint: rgba(255, 255, 255, 0.08);
-      --text-light: #ffffff;
-      --text-muted: #a5abc2;
-      --accent-teal: #00e0b8;
-      --accent-purple: #6d5dfc;
-      --accent-red: #ef4444;
-      --card-glow: 0 0 25px rgba(0, 224, 184, 0.15);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      background: radial-gradient(circle at top right, #111122 0%, #0c0c17 100%);
-      color: var(--text-light);
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-    }
-
-    .main-container {
-      padding: 2.5rem 1rem 4rem;
-    }
-
-    /* === Hero Section === */
-    .hero-section {
-      text-align: center;
-      margin-bottom: 3.5rem;
-    }
-
-    .hero-title {
-      font-size: clamp(2.5rem, 5vw, 3.5rem);
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--accent-teal), var(--accent-purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 1rem;
-    }
-
-    .hero-subtitle {
-      color: var(--text-muted);
-      max-width: 650px;
-      margin: 0 auto;
-      font-size: 1.05rem;
-      line-height: 1.6;
-    }
-
-    /* === Main Card === */
-    .main-card {
-      background: var(--surface-dark);
-      border: 1px solid var(--border-faint);
-      border-radius: 20px;
-      backdrop-filter: blur(20px);
-      box-shadow: var(--card-glow);
-      padding: 2.5rem;
-      max-width: 820px;
-      margin: 0 auto;
-      transition: all 0.3s ease;
-    }
-
-    .main-card:hover {
-      box-shadow: 0 0 35px rgba(0, 224, 184, 0.2);
-      border-color: rgba(0, 224, 184, 0.3);
-    }
-
-    /* === Upload Area === */
-    .upload-area {
-      border: 2px dashed var(--border-faint);
-      border-radius: 20px;
-      text-align: center;
-      padding: 3rem 1rem;
-      background: rgba(255, 255, 255, 0.02);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .upload-area:hover {
-      background: rgba(0, 224, 184, 0.05);
-      border-color: var(--accent-teal);
-      box-shadow: 0 0 25px rgba(0, 224, 184, 0.1);
-    }
-
-    .upload-icon {
-      font-size: 3.5rem;
-      color: var(--accent-teal);
-      margin-bottom: 1rem;
-    }
-
-    .upload-text {
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: var(--text-light);
-    }
-
-    .upload-subtext {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    /* === Buttons === */
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent-teal), var(--accent-purple));
-      border: none;
-      border-radius: 14px;
-      padding: 1rem 2rem;
-      font-weight: 700;
-      transition: all 0.3s ease;
-      color: #fff;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(0, 224, 184, 0.4);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid var(--border-faint);
-      border-radius: 14px;
-      color: var(--text-light);
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--accent-teal);
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    .btn-success {
-      background: linear-gradient(135deg, #00d084, #00bfa6);
-      border: none;
-      border-radius: 14px;
-      font-weight: 600;
-      color: #fff;
-    }
-
-    /* === Camera Section === */
-    .camera-section {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--border-faint);
-      border-radius: 18px;
-      padding: 2rem;
-      margin-top: 2rem;
-      text-align: center;
-    }
-
-    .camera-title {
-      font-weight: 700;
-      color: var(--text-light);
-      margin-bottom: 1.3rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-    }
-
-    .video-container {
-      border-radius: 16px;
-      overflow: hidden;
-      background: #0b0b14;
-      margin-top: 1.5rem;
-    }
-
-    /* === Results === */
-    .result-card {
-      background: linear-gradient(135deg, rgba(0, 224, 184, 0.1), rgba(109, 93, 252, 0.1));
-      border: 1px solid rgba(0, 224, 184, 0.3);
-      border-radius: 24px;
-      padding: 2.5rem;
-      margin-top: 2rem;
-      animation: fadeInUp 0.6s ease;
-      box-shadow: 0 0 20px rgba(0, 224, 184, 0.15);
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .primary-emotion {
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: var(--accent-teal);
-      text-transform: capitalize;
-    }
-
-    .confidence-display {
-      color: var(--text-muted);
-      font-weight: 600;
-      font-size: 1.1rem;
-    }
-
-    .emotion-breakdown {
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 18px;
-      padding: 1.5rem;
-    }
-
-    .emotion-bar {
-      background: rgba(255, 255, 255, 0.04);
-      border-radius: 12px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      transition: all 0.3s ease;
-    }
-
-    .emotion-bar:hover {
-      background: rgba(255, 255, 255, 0.07);
-      transform: translateX(5px);
-    }
-
-    .primary-emotion-bar {
-      border: 2px solid var(--accent-teal);
-      background: rgba(0, 224, 184, 0.12);
-    }
-
-    .emotion-percentage {
-      font-weight: 700;
-      background: var(--accent-teal);
-      color: #0c0c17;
-      padding: 0.3rem 0.8rem;
-      border-radius: 10px;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
 <body>
   <div class="main-container">
     <!-- Hero Section -->
     <section class="hero-section">
       <h1 class="hero-title">Emotion Detection AI</h1>
-      <p class="hero-subtitle">Upload an image or use your webcam to detect emotions in real-time.</p>
+      <p class="hero-subtitle">Upload an image or use your webcam to detect emotions in real-time using advanced machine learning.</p>
     </section>
 
     <!-- Upload Card -->
     <div class="main-card">
+      <!-- User Info Form -->
+      <div class="mb-4">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="nameInput" class="form-label">Name <span style="color: var(--accent-red);">*</span></label>
+            <input type="text" class="form-control" id="nameInput" placeholder="Enter your name" required />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="emailInput" class="form-label">Email (Optional)</label>
+            <input type="email" class="form-control" id="emailInput" placeholder="Enter your email" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Upload Area -->
       <div class="upload-area" id="uploadArea">
         <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
         <div class="upload-text">Drag & Drop or Click to Upload</div>
-        <div class="upload-subtext">Supported formats: JPG, PNG</div>
-        <input type="file" id="imageInput" accept="image/*" class="form-control hidden" />
+        <div class="upload-subtext">Supported formats: JPG, PNG, GIF, BMP</div>
+        <div class="file-name hidden" id="fileName"></div>
+        <input type="file" id="imageInput" accept="image/*" class="hidden" />
       </div>
 
+      <!-- Image Preview -->
+      <div id="uploadPreviewContainer" class="image-preview-container hidden">
+        <div class="preview-label">
+          <i class="fa-solid fa-image"></i> Image Preview
+        </div>
+        <img id="uploadPreview" class="image-preview" alt="Preview" />
+        <button class="btn remove-image-btn" id="removeUploadBtn">
+          <i class="fa-solid fa-trash"></i> Remove Image
+        </button>
+      </div>
+
+      <!-- Error Display -->
+      <div id="errorAlert" class="alert alert-danger mt-3 hidden" role="alert">
+        <i class="fa-solid fa-exclamation-circle"></i> <span id="errorMessage"></span>
+      </div>
+
+      <!-- Detect Button -->
       <div class="text-center mt-4">
         <button class="btn btn-primary" id="detectButton">
-          <i class="fa-solid fa-face-smile"></i> Detect Emotion
+          <span id="detectButtonText"><i class="fa-solid fa-face-smile"></i> Detect Emotion</span>
+          <span id="detectButtonSpinner" class="hidden">
+            <span class="spinner-border spinner-border-sm me-2"></span>Analyzing...
+          </span>
         </button>
       </div>
     </div>
@@ -278,69 +72,337 @@
     <!-- Camera Section -->
     <div class="camera-section">
       <h3 class="camera-title"><i class="fa-solid fa-camera"></i> Live Camera Detection</h3>
-      <div class="video-container">
+      
+      <div class="video-container hidden" id="videoContainer">
         <video id="cameraFeed" width="100%" autoplay muted playsinline></video>
+        <canvas id="canvas" class="hidden"></canvas>
       </div>
-      <button class="btn btn-secondary mt-3" id="startCameraBtn">
-        <i class="fa-solid fa-play"></i> Start Camera
-      </button>
-      <button class="btn btn-success mt-3 hidden" id="stopCameraBtn">
-        <i class="fa-solid fa-stop"></i> Stop Camera
-      </button>
+
+      <!-- Camera Captured Image Preview -->
+      <div id="cameraPreviewContainer" class="image-preview-container hidden">
+        <div class="preview-label">
+          <i class="fa-solid fa-camera"></i> Captured Image
+        </div>
+        <img id="cameraPreview" class="image-preview" alt="Captured" />
+        <button class="btn remove-image-btn" id="removeCameraBtn">
+          <i class="fa-solid fa-trash"></i> Retake Picture
+        </button>
+      </div>
+
+      <div class="mt-3">
+        <button class="btn btn-secondary" id="startCameraBtn">
+          <i class="fa-solid fa-play"></i> Start Camera
+        </button>
+        <button class="btn btn-success hidden" id="captureBtn">
+          <i class="fa-solid fa-camera"></i> Take Picture
+        </button>
+        <button class="btn btn-primary hidden" id="analyzeCameraBtn">
+          <i class="fa-solid fa-face-smile"></i> Analyze Picture
+        </button>
+        <button class="btn btn-secondary hidden" id="stopCameraBtn">
+          <i class="fa-solid fa-stop"></i> Stop Camera
+        </button>
+      </div>
     </div>
 
     <!-- Results Section -->
     <div id="resultSection" class="result-card hidden">
-      <h3>Results</h3>
+      <h3 class="mb-3"><i class="fa-solid fa-chart-line"></i> Analysis Results</h3>
       <div class="primary-emotion" id="primaryEmotion">😊 Happy</div>
       <div class="confidence-display">Confidence: <span id="confidence">95%</span></div>
+      <p class="text-muted mt-2" id="resultMessage"></p>
 
-      <div class="emotion-breakdown mt-3">
-        <div class="emotion-bar primary-emotion-bar d-flex justify-content-between align-items-center">
-          <span>Happy</span>
-          <span class="emotion-percentage">95%</span>
-        </div>
-        <div class="emotion-bar d-flex justify-content-between align-items-center">
-          <span>Sad</span>
-          <span class="emotion-percentage">3%</span>
-        </div>
-        <div class="emotion-bar d-flex justify-content-between align-items-center">
-          <span>Angry</span>
-          <span class="emotion-percentage">2%</span>
-        </div>
+      <div class="emotion-breakdown" id="emotionBreakdown">
+        <!-- Will be populated dynamically -->
       </div>
     </div>
   </div>
 
   <script>
-    // === Interactivity Script ===
+    // === Element References ===
     const uploadArea = document.getElementById("uploadArea");
     const imageInput = document.getElementById("imageInput");
     const detectButton = document.getElementById("detectButton");
+    const detectButtonText = document.getElementById("detectButtonText");
+    const detectButtonSpinner = document.getElementById("detectButtonSpinner");
     const resultSection = document.getElementById("resultSection");
+    const errorAlert = document.getElementById("errorAlert");
+    const errorMessage = document.getElementById("errorMessage");
+    const fileName = document.getElementById("fileName");
+    const nameInput = document.getElementById("nameInput");
+    const emailInput = document.getElementById("emailInput");
+    const uploadPreview = document.getElementById("uploadPreview");
+    const uploadPreviewContainer = document.getElementById("uploadPreviewContainer");
+    const removeUploadBtn = document.getElementById("removeUploadBtn");
+
+    // Camera elements
     const startCameraBtn = document.getElementById("startCameraBtn");
+    const captureBtn = document.getElementById("captureBtn");
+    const analyzeCameraBtn = document.getElementById("analyzeCameraBtn");
     const stopCameraBtn = document.getElementById("stopCameraBtn");
     const video = document.getElementById("cameraFeed");
+    const canvas = document.getElementById("canvas");
+    const videoContainer = document.getElementById("videoContainer");
+    const cameraPreview = document.getElementById("cameraPreview");
+    const cameraPreviewContainer = document.getElementById("cameraPreviewContainer");
+    const removeCameraBtn = document.getElementById("removeCameraBtn");
 
-    // Upload click
+    let stream;
+    let selectedFile = null;
+    let capturedImageData = null;
+
+    // === Emotion Icons Mapping ===
+    const emotionIcons = {
+      'happy': '😊',
+      'sad': '😢',
+      'angry': '😠',
+      'surprise': '😲',
+      'fear': '😨',
+      'disgust': '🤢',
+      'neutral': '😐'
+    };
+
+    // === Upload Area Click ===
     uploadArea.addEventListener("click", () => imageInput.click());
 
-    // Fake detection for demo
-    detectButton.addEventListener("click", () => {
-      resultSection.classList.remove("hidden");
+    // === File Selection ===
+    imageInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        selectedFile = file;
+        fileName.textContent = `${file.name}`;
+        fileName.classList.remove("hidden");
+        uploadArea.classList.add("has-file");
+        
+        // Show image preview
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          uploadPreview.src = event.target.result;
+          uploadPreviewContainer.classList.remove("hidden");
+          console.log("Upload preview loaded");
+        };
+        reader.onerror = (error) => {
+          console.error("Error reading file:", error);
+        };
+        reader.readAsDataURL(file);
+        
+        hideError();
+      }
     });
 
-    // Camera controls
-    let stream;
+    // === Remove Uploaded Image ===
+    removeUploadBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      selectedFile = null;
+      imageInput.value = "";
+      fileName.classList.add("hidden");
+      uploadArea.classList.remove("has-file");
+      uploadPreviewContainer.classList.add("hidden");
+      uploadPreview.src = "";
+      resultSection.classList.add("hidden");
+      console.log("Upload preview cleared");
+    });
+
+    // === Drag & Drop Support ===
+    uploadArea.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      uploadArea.style.borderColor = "var(--accent-teal)";
+    });
+
+    uploadArea.addEventListener("dragleave", () => {
+      uploadArea.style.borderColor = "var(--border-faint)";
+    });
+
+    uploadArea.addEventListener("drop", (e) => {
+      e.preventDefault();
+      uploadArea.style.borderColor = "var(--border-faint)";
+      
+      const file = e.dataTransfer.files[0];
+      if (file && file.type.startsWith("image/")) {
+        selectedFile = file;
+        imageInput.files = e.dataTransfer.files;
+        fileName.textContent = `${file.name}`;
+        fileName.classList.remove("hidden");
+        uploadArea.classList.add("has-file");
+        
+        // Show image preview
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          uploadPreview.src = event.target.result;
+          uploadPreviewContainer.classList.remove("hidden");
+          console.log("Dropped image preview loaded");
+        };
+        reader.onerror = (error) => {
+          console.error("Error reading dropped file:", error);
+        };
+        reader.readAsDataURL(file);
+        
+        hideError();
+      }
+    });
+
+    // === Detect Emotion (Upload) ===
+    detectButton.addEventListener("click", async () => {
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+
+      // Validation
+      if (!name) {
+        showError("Please enter your name");
+        nameInput.focus();
+        return;
+      }
+
+      if (!selectedFile) {
+        showError("Please select an image file");
+        return;
+      }
+
+      // Show loading state
+      detectButton.disabled = true;
+      detectButtonText.classList.add("hidden");
+      detectButtonSpinner.classList.remove("hidden");
+      hideError();
+      resultSection.classList.add("hidden");
+
+      // Create FormData
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("file", selectedFile);
+
+      try {
+        const response = await fetch("/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          displayResults(data);
+        } else {
+          showError(data.error || "Failed to analyze image");
+        }
+      } catch (error) {
+        showError("Network error. Please try again.");
+        console.error("Error:", error);
+      } finally {
+        // Reset button state
+        detectButton.disabled = false;
+        detectButtonText.classList.remove("hidden");
+        detectButtonSpinner.classList.add("hidden");
+      }
+    });
+
+    // === Camera Controls ===
     startCameraBtn.addEventListener("click", async () => {
       try {
-        stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        stream = await navigator.mediaDevices.getUserMedia({ 
+          video: { width: 640, height: 480 } 
+        });
         video.srcObject = stream;
+        videoContainer.classList.remove("hidden");
         startCameraBtn.classList.add("hidden");
+        captureBtn.classList.remove("hidden");
         stopCameraBtn.classList.remove("hidden");
       } catch (err) {
-        alert("Camera access denied!");
+        showError("Camera access denied! Please allow camera permissions.");
+        console.error("Camera error:", err);
       }
+    });
+
+    captureBtn.addEventListener("click", () => {
+      // Capture image from video
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(video, 0, 0);
+
+      // Convert to base64
+      capturedImageData = canvas.toDataURL("image/jpeg");
+
+      // Show preview
+      cameraPreview.src = capturedImageData;
+      cameraPreviewContainer.classList.remove("hidden");
+      console.log("Camera preview loaded");
+      
+      // Hide video, show analyze button
+      videoContainer.classList.add("hidden");
+      captureBtn.classList.add("hidden");
+      analyzeCameraBtn.classList.remove("hidden");
+      
+      hideError();
+    });
+
+    analyzeCameraBtn.addEventListener("click", async () => {
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+
+      if (!name) {
+        showError("Please enter your name in the form above");
+        nameInput.focus();
+        nameInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      if (!capturedImageData) {
+        showError("No image captured. Please take a picture first.");
+        return;
+      }
+
+      // Show loading
+      analyzeCameraBtn.disabled = true;
+      analyzeCameraBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Analyzing...';
+      hideError();
+      resultSection.classList.add("hidden");
+
+      try {
+        const response = await fetch("/process_live_image", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            image: capturedImageData,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          displayResults({
+            success: true,
+            emotion: data.emotion,
+            confidence: data.confidence,
+            all_emotions: data.all_emotions,
+            message: data.message
+          });
+        } else {
+          showError(data.error || "Failed to analyze image");
+        }
+      } catch (error) {
+        showError("Network error. Please try again.");
+        console.error("Error:", error);
+      } finally {
+        analyzeCameraBtn.disabled = false;
+        analyzeCameraBtn.innerHTML = '<i class="fa-solid fa-face-smile"></i> Analyze Picture';
+      }
+    });
+
+    removeCameraBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      // Clear captured image and show video again
+      capturedImageData = null;
+      cameraPreview.src = "";
+      cameraPreviewContainer.classList.add("hidden");
+      videoContainer.classList.remove("hidden");
+      captureBtn.classList.remove("hidden");
+      analyzeCameraBtn.classList.add("hidden");
+      resultSection.classList.add("hidden");
+      console.log("Camera preview cleared");
     });
 
     stopCameraBtn.addEventListener("click", () => {
@@ -348,9 +410,62 @@
         stream.getTracks().forEach(track => track.stop());
         video.srcObject = null;
       }
+      capturedImageData = null;
+      videoContainer.classList.add("hidden");
+      cameraPreviewContainer.classList.add("hidden");
       startCameraBtn.classList.remove("hidden");
+      captureBtn.classList.add("hidden");
+      analyzeCameraBtn.classList.add("hidden");
       stopCameraBtn.classList.add("hidden");
+      resultSection.classList.add("hidden");
     });
+
+    // === Display Results ===
+    function displayResults(data) {
+      const emotion = data.emotion;
+      const confidence = data.confidence;
+      const allEmotions = data.all_emotions;
+
+      // Update primary emotion
+      const icon = emotionIcons[emotion] || '🎭';
+      document.getElementById("primaryEmotion").textContent = `${icon} ${emotion.charAt(0).toUpperCase() + emotion.slice(1)}`;
+      document.getElementById("confidence").textContent = `${(confidence * 100).toFixed(1)}%`;
+      document.getElementById("resultMessage").textContent = data.message || '';
+
+      // Update emotion breakdown
+      const breakdownHtml = Object.entries(allEmotions)
+        .sort((a, b) => b[1] - a[1])
+        .map(([emo, percentage]) => {
+          const isPrimary = emo === emotion;
+          const barClass = isPrimary ? 'emotion-bar primary-emotion-bar' : 'emotion-bar';
+          const icon = emotionIcons[emo] || '🎭';
+          
+          return `
+            <div class="${barClass} d-flex justify-content-between align-items-center">
+              <span>${icon} ${emo.charAt(0).toUpperCase() + emo.slice(1)}</span>
+              <span class="emotion-percentage">${percentage.toFixed(1)}%</span>
+            </div>
+          `;
+        })
+        .join('');
+
+      document.getElementById("emotionBreakdown").innerHTML = breakdownHtml;
+
+      // Show results
+      resultSection.classList.remove("hidden");
+      resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // === Error Handling ===
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorAlert.classList.remove("hidden");
+      errorAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function hideError() {
+      errorAlert.classList.add("hidden");
+    }
   </script>
 </body>
 </html>
