@@ -1,0 +1,2 @@
+online-link:
+https://emotion-detection-application-qluh.onrender.com/
